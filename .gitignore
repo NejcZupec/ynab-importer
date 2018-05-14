@@ -1,0 +1,7 @@
+.idea
+config.yml
+venv
+
+*.csv
+__pycache__
+*.py[cod]
