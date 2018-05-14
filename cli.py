@@ -24,7 +24,7 @@ def cli():
 def export_transactions():
     """ Generate YNAB ready CSV files for accounts defined in config.yml """
 
-    cfg = yaml.load(open('config.yml', 'r'))
+    cfg = yaml.safe_load(open('config.yml', 'r'))
 
     for account in cfg['accounts']:
         print('Collecting data for account: {}'.format(account['name']))

@@ -19,11 +19,12 @@ class TransactionsParser(object):
 
     @staticmethod
     def _parse_memo(transaction):
+        name = transaction.get('merchantName') or \
+               transaction.get('partnerName')
         memo_params = OrderedDict({
-            'Name': transaction.get('merchantName'),
-            'City': transaction.get('merchantCity'),
-            'Reference': transaction.get('referenceText'),
-            'Name': transaction.get('partnerName'),
+            'name': name,
+            'city': transaction.get('merchantCity'),
+            'reference': transaction.get('referenceText'),
         })
         memo = ''
         for key, value in memo_params.items():
