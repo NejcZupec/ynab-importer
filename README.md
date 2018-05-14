@@ -1,6 +1,8 @@
 YNAB Importer
 =============
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/93a6a2f00c314ada8f5c171f2d51b29a)](https://app.codacy.com/app/zupecnejc_3396/ynab-importer?utm_source=github.com&utm_medium=referral&utm_content=NejcZupec/ynab-importer&utm_campaign=badger)
+
 Import transactions from European banks directly to YNAB via the API.
 
 To-do list:
