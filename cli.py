@@ -46,5 +46,27 @@ def export_transactions():
         csv_builder.export_csv(file_name)
 
 
+@cli.command()
+def get_balances():
+    """ Get balances for all accounts defined in config.yml """
+
+    cfg = yaml.safe_load(open('config.yml', 'r'))
+
+    for account in cfg['accounts']:
+
+        if account['bank'] != 'n26':
+            raise BankConnectorNotImplemented(account['bank'])
+
+        connector = N26Connector(
+            username=account['settings']['username'],
+            password=account['settings']['password'],
+            card_id=account['settings']['card_id'],
+        )
+
+        balance = connector.api.get_balance()['usableBalance']
+        msg = 'Balance for account {} is {} EUR.'
+        print(msg.format(account['name'], balance))
+
+
 if __name__ == '__main__':
     cli()
