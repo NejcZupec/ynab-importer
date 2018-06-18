@@ -12,7 +12,7 @@ class TransactionsParser(object):
 
     @staticmethod
     def _parse_date(transaction):
-        created = transaction.get('createdTS')
+        created = transaction.get('visibleTS')
         if not created:
             return None
         return datetime.fromtimestamp(created/1000).strftime('%d/%m/%Y')
