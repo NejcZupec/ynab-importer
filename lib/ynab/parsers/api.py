@@ -16,10 +16,11 @@ class YNABAPIParser(object):
         self._bank = bank
         self._transactions = transactions
 
-    def parse(self):
+    def parse(self, account_id, import_sequence):
         if self._bank != 'n26':
             raise BankParserNotImplemented(self._bank)
-        return N26TransactionsAPIParser(self._transactions).parse()
+        return N26TransactionsAPIParser(self._transactions).parse(
+            account_id, import_sequence)
 
 
 class N26TransactionsAPIParser(object):
