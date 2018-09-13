@@ -7,3 +7,5 @@ from collections import namedtuple
 YNAB_COLUMNS = ('date', 'payee', 'memo', 'outflow', 'inflow')
 
 YNABRow = namedtuple('YNABRow', YNAB_COLUMNS)
+
+YNABAccount = namedtuple('YNABAccount', ('name', 'connector'))
