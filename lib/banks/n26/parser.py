@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from datetime import datetime
 
-from ynab import YNABRow
+from lib.constants.ynab import YNABRow
 
 
 class TransactionsParser(object):

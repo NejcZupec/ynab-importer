@@ -5,7 +5,7 @@ import yaml
 
 from lib.banks.n26.connector import N26Connector
 from lib.csv import CSVBuilder
-from ynab import YNAB_COLUMNS
+from lib.constants.ynab import YNAB_COLUMNS
 
 CONFIG_FILE_PATH = os.path.join(os.path.dirname(__file__), 'config.yml')
 CONTEXT_SETTINGS = dict(
