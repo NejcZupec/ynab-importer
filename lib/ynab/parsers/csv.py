@@ -1,7 +1,11 @@
+from collections import namedtuple
 from collections import OrderedDict
 from datetime import datetime
 
-from lib.constants.ynab import YNABRow
+from lib.constants import YNAB_COLUMNS
+
+
+YNABRow = namedtuple('YNABRow', YNAB_COLUMNS)
 
 
 class BankParserNotImplemented(Exception):

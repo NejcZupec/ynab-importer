@@ -2,8 +2,8 @@ import click
 
 
 from configurator import app_conf
+from lib.constants import YNAB_COLUMNS
 from lib.csv import CSVBuilder
-from lib.constants.ynab import YNAB_COLUMNS
 from lib.ynab.parsers.csv import CSVParser
 
 

@@ -1,13 +1,22 @@
+from collections import namedtuple
 import os
 
 import yaml
 import ynab
 
 from lib.banks.n26.connector import N26Connector
-from lib.constants.ynab import YNABAccount
 
 
 CONFIG_FILE_PATH = os.path.join(os.path.dirname(__file__), 'config.yml')
+
+
+YNABAccount = namedtuple('YNABAccount', (
+    'name',  # string
+    'bank',  # string
+    'connector',  # instance of Connector
+    'ynab_account_id',  # string (UUID-like)
+    'ynab_budget_id',  # string (UUID-like)
+))
 
 
 class ConfigFileNotFound(Exception):
