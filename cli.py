@@ -44,7 +44,7 @@ def get_balances():
     """ Get balances for all accounts defined in config.yml """
 
     for account in app_conf.accounts:
-        balance = account.connector.api.get_balance()['usableBalance']
+        balance = account.connector.get_balance()
         msg = 'Balance for account {} is {} EUR.'
         print(msg.format(account.name, balance))
 
