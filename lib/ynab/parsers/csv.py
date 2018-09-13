@@ -4,11 +4,33 @@ from datetime import datetime
 from lib.constants.ynab import YNABRow
 
 
-class TransactionsParser(object):
-    """ Convert N26 transactions to YNAB rows """
+class BankParserNotImplemented(Exception):
+    pass
 
-    def __init__(self, _transactions):
-        self._transactions = _transactions
+
+class CSVParser(object):
+
+    def __init__(self, bank, transactions):
+        self._bank = bank
+        self._transactions = transactions
+
+    def parse_rows(self):
+        if self._bank != 'n26':
+            raise BankParserNotImplemented(self._bank)
+        return N26TransactionsParser(self._transactions).parse_rows()
+
+
+class TransactionsParser(object):
+
+    def parse_rows(self):
+        raise NotImplementedError
+
+
+class N26TransactionsParser(TransactionsParser):
+    """ Convert N26 transactions to YNAB CSV rows """
+
+    def __init__(self, n26_transactions):
+        self._transactions = n26_transactions
 
     @staticmethod
     def _parse_date(transaction):

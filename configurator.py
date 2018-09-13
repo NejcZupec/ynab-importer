@@ -52,6 +52,7 @@ class Configurator(object):
 
                 accounts.append(YNABAccount(
                     name=account['name'],
+                    bank=account['bank'],
                     connector=connector,
                     ynab_account_id=account['ynab_account_id'],
                     ynab_budget_id=account['ynab_budget_id'],

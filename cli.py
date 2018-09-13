@@ -4,6 +4,7 @@ import click
 from configurator import app_conf
 from lib.csv import CSVBuilder
 from lib.constants.ynab import YNAB_COLUMNS
+from lib.ynab.parsers.csv import CSVParser
 
 
 CONTEXT_SETTINGS = dict(
@@ -23,11 +24,16 @@ def export_transactions():
     for account in app_conf.accounts:
         print('Collecting data for account: {}'.format(account.name))
 
-        file_name = '{}.csv'.format(account.name)
+        transactions = account.connector.get_transactions()
+        csv_rows = CSVParser(
+            bank=account.bank,
+            transactions=transactions,
+        ).parse_rows()
         csv_builder = CSVBuilder(
             header=YNAB_COLUMNS,
-            rows=account.connector.get_ynab_rows(),
+            rows=csv_rows,
         )
+        file_name = '{}.csv'.format(account.name)
         csv_builder.export_csv(file_name)
 
 
