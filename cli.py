@@ -1,10 +1,12 @@
 import click
+import ynab
 
 
 from configurator import app_conf
 from lib.constants import YNAB_COLUMNS
 from lib.csv import CSVBuilder
-from lib.ynab.parsers.csv import CSVParser
+from lib.ynab.parsers.api import YNABAPIParser
+from lib.ynab.parsers.csv import YNABCSVParser
 
 
 CONTEXT_SETTINGS = dict(
@@ -25,7 +27,7 @@ def export_transactions():
         print('Collecting data for account: {}'.format(account.name))
 
         transactions = account.connector.get_transactions()
-        csv_rows = CSVParser(
+        csv_rows = YNABCSVParser(
             bank=account.bank,
             transactions=transactions,
         ).parse_rows()
@@ -45,6 +47,38 @@ def get_balances():
         balance = account.connector.api.get_balance()['usableBalance']
         msg = 'Balance for account {} is {} EUR.'
         print(msg.format(account.name, balance))
+
+
+@cli.command()
+@click.argument('import_sequence', required=False)
+def sync_transactions(import_sequence=1):
+    """ Sync transactions for all accounts with YNAB
+
+    import_sequence - see https://support.youneedabudget.com/t/k95rt1
+    """
+
+    for account in app_conf.accounts:
+        print('Syncing data for account: {}'.format(account.name))
+        account_id = account.ynab_account_id
+        budget_id = account.ynab_budget_id
+
+        transactions = account.connector.get_transactions()
+
+        api_transactions = YNABAPIParser(
+            bank=account.bank,
+            transactions=transactions,
+        ).parse(account_id, import_sequence)
+
+        response = ynab.TransactionsApi().bulk_create_transactions(
+            budget_id=budget_id,
+            transactions=api_transactions,
+        )
+
+        duplicates = response.data.bulk.duplicate_import_ids
+        new_transactions = response.data.bulk.transaction_ids
+
+        print('Success: duplicates: {}, new: {}'.format(
+            len(duplicates), len(new_transactions)))
 
 
 if __name__ == '__main__':
