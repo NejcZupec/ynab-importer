@@ -13,7 +13,7 @@ To-do list:
 formatted for YNAB import**
 
 
-Supported banks
+Supported Banks
 ---------------
 
 - n26
@@ -40,3 +40,33 @@ python cli.py export_transactions
 
 The command will export transactions to CSV files for all accounts listed in
 `config.yml`. These files can be directly imported to YNAB via the UI.
+
+
+CLI Installation and Autocomplete
+---------------------------------
+
+First install ynab_importer package:
+
+```sh
+pip3 install .
+```
+
+#### Bash
+
+Add the following lines to .bashrc:
+
+```sh
+# Enable autocomplete for ynab_importer's CLI
+eval "$(_YNAB_IMPORTER_COMPLETE=source ynab_importer)"
+```
+
+#### Zsh
+
+Add the following lines to .zshrc:
+
+```sh
+# Enable autocomplete for ynab_importer's CLI
+autoload bashcompinit
+bashcompinit
+eval "$(_YNAB_IMPORTER_COMPLETE=source ynab_importer)"
+```
