@@ -1,6 +1,7 @@
 import os
 
 import yaml
+import ynab
 
 from lib.banks.n26.connector import N26Connector
 from lib.constants.ynab import YNABAccount
@@ -30,6 +31,7 @@ class Configurator(object):
             msg = 'Copy config.yml.example to config.yml and configure all ' \
                   'relevant settings'
             raise ConfigFileNotFound(msg)
+        self._configure_ynab_api()
 
     @property
     def accounts(self):
@@ -51,6 +53,8 @@ class Configurator(object):
                 accounts.append(YNABAccount(
                     name=account['name'],
                     connector=connector,
+                    ynab_account_id=account['ynab_account_id'],
+                    ynab_budget_id=account['ynab_budget_id'],
                 ))
 
         except KeyError as e:
@@ -59,6 +63,18 @@ class Configurator(object):
             raise ErrorInConfigFile(msg.format(field))
 
         return accounts
+
+    def _configure_ynab_api(self):
+        try:
+            ynab_api_token = self.cfg['ynab']['api_token']
+        except KeyError as e:
+            field = e.args[0]
+            msg = 'Field {} is missing. YNAB access token needed. See ' \
+                  'config.yml.example file'
+            raise ErrorInConfigFile(msg.format(field))
+        configuration = ynab.Configuration()
+        configuration.api_key['Authorization'] = ynab_api_token
+        configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 
 app_conf = Configurator()

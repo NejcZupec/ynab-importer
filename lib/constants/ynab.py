@@ -8,4 +8,9 @@ YNAB_COLUMNS = ('date', 'payee', 'memo', 'outflow', 'inflow')
 
 YNABRow = namedtuple('YNABRow', YNAB_COLUMNS)
 
-YNABAccount = namedtuple('YNABAccount', ('name', 'connector'))
+YNABAccount = namedtuple('YNABAccount', (
+    'name',  # string
+    'connector',  # instance of Connector
+    'ynab_account_id',  # string (UUID-like)
+    'ynab_budget_id',  # string (UUID-like)
+))
