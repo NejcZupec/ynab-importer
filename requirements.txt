@@ -1,4 +1,5 @@
 click==6.7
 n26==0.1.4
 PyYAML==3.13
+requests==2.20.0
 -e git+https://github.com/deanmcgregor/ynab-python.git@4ee7c1641a995e1c393d5ebcab7eac93b35da9ad#egg=ynab-python
