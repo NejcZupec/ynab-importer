@@ -74,6 +74,24 @@ class Configurator(object):
 
         return accounts
 
+    @property
+    def pushed_app_key(self):
+        try:
+            return self.cfg['pushed']['app_key']
+        except KeyError as e:
+            field = e.args[0]
+            msg = 'Field {} is missing. See config.yml.example file'
+            raise ErrorInConfigFile(msg.format(field))
+
+    @property
+    def pushed_app_secret(self):
+        try:
+            return self.cfg['pushed']['app_key']
+        except KeyError as e:
+            field = e.args[0]
+            msg = 'Field {} is missing. See config.yml.example file'
+            raise ErrorInConfigFile(msg.format(field))
+
     def _configure_ynab_api(self):
         try:
             ynab_api_token = self.cfg['ynab']['api_token']

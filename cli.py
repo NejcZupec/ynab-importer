@@ -5,6 +5,7 @@ import ynab
 from configurator import app_conf
 from lib.constants import YNAB_COLUMNS
 from lib.csv import CSVBuilder
+from lib.pushed.api import PushedAPIClient
 from lib.ynab.parsers.api import YNABAPIParser
 from lib.ynab.parsers.csv import YNABCSVParser
 
@@ -77,8 +78,11 @@ def sync_transactions(import_sequence=1):
         duplicates = response.data.bulk.duplicate_import_ids
         new_transactions = response.data.bulk.transaction_ids
 
-        print('Success: duplicates: {}, new: {}'.format(
-            len(duplicates), len(new_transactions)))
+        msg = 'Successfully synced account {} with YNAB: duplicates: {},' \
+              ' new: {}'.format(
+                account.name, len(duplicates), len(new_transactions))
+
+        PushedAPIClient.push(msg)
 
 
 if __name__ == '__main__':

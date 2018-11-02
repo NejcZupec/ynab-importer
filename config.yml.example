@@ -20,4 +20,8 @@ accounts:
 ynab:
   # get API token here: https://app.youneedabudget.com/settings/developer
   api_token: '<token>'
+pushed:
+  # https://pushed.co/
+  api_key: '<pushed_api_key>'
+  api_secret: '<pushed_api_secret>'
 ...
