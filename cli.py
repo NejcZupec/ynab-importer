@@ -1,10 +1,10 @@
 import click
 import ynab
 
-
 from configurator import app_conf
 from lib.constants import YNAB_COLUMNS
 from lib.csv import CSVBuilder
+from lib.log import logger
 from lib.pushed.api import PushedAPIClient
 from lib.ynab.parsers.api import YNABAPIParser
 from lib.ynab.parsers.csv import YNABCSVParser
@@ -25,7 +25,7 @@ def export_transactions():
     """ Generate YNAB ready CSV files for accounts defined in config.yml """
 
     for account in app_conf.accounts:
-        print('Collecting data for account: {}'.format(account.name))
+        logger.info('Collecting data for account: {}'.format(account.name))
 
         transactions = account.connector.get_transactions()
         csv_rows = YNABCSVParser(
@@ -47,7 +47,7 @@ def get_balances():
     for account in app_conf.accounts:
         balance = account.connector.get_balance()
         msg = 'Balance for account {} is {} EUR.'
-        print(msg.format(account.name, balance))
+        logger.info(msg.format(account.name, balance))
 
 
 @cli.command()
@@ -59,7 +59,7 @@ def sync_transactions(import_sequence=1):
     """
 
     for account in app_conf.accounts:
-        print('Syncing data for account: {}'.format(account.name))
+        logger.info('Syncing data for account: {}'.format(account.name))
         account_id = account.ynab_account_id
         budget_id = account.ynab_budget_id
 
@@ -81,7 +81,7 @@ def sync_transactions(import_sequence=1):
         msg = 'Successfully synced account {} with YNAB: duplicates: {},' \
               ' new: {}'.format(
                 account.name, len(duplicates), len(new_transactions))
-
+        logger.info(msg)
         PushedAPIClient.push(msg)
 
 

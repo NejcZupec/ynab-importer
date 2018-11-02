@@ -2,6 +2,7 @@
 .python-version
 config.yml
 venv
+ynab_importer.log
 
 *.csv
 __pycache__
