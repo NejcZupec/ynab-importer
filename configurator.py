@@ -86,7 +86,7 @@ class Configurator(object):
     @property
     def pushed_app_secret(self):
         try:
-            return self.cfg['pushed']['app_key']
+            return self.cfg['pushed']['app_secret']
         except KeyError as e:
             field = e.args[0]
             msg = 'Field {} is missing. See config.yml.example file'
