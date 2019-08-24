@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import click
 import ynab
 
@@ -82,7 +84,9 @@ def sync_transactions(import_sequence=1):
               ' new: {}'.format(
                 account.name, len(duplicates), len(new_transactions))
         logger.info(msg)
-        PushedAPIClient.push(msg)
+
+        if len(new_transactions) > 0:
+            PushedAPIClient.push(msg)
 
 
 if __name__ == '__main__':
