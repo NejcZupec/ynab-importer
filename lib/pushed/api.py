@@ -27,8 +27,8 @@ class PushedAPIClient(object):
         response_json = json.loads(response.text)
 
         if 'error' in response_json:
-            msg = 'Message not sent. Error: {}'
-            logger.error(msg.format(response_json['error']['message']))
+            error_msg = response_json['error']['message']
+            logger.error(f'Message not sent. Error: {error_msg}')
             return
 
         response_type = response_json['response']['type']
@@ -36,5 +36,4 @@ class PushedAPIClient(object):
         if response_type == 'shipment_successfully_sent':
             logger.info('Message successfully delivered to Pushed service')
         else:
-            msg = 'Wrong response type from Pushed: {}'.format(response_type)
-            logger.error(msg)
+            logger.error(f'Wrong response type from Pushed: {response_type}')

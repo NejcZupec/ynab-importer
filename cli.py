@@ -27,7 +27,7 @@ def export_transactions():
     """ Generate YNAB ready CSV files for accounts defined in config.yml """
 
     for account in app_conf.accounts:
-        logger.info('Collecting data for account: {}'.format(account.name))
+        logger.info(f'Collecting data for account: {account.name}')
 
         transactions = account.connector.get_transactions()
         csv_rows = YNABCSVParser(
@@ -38,7 +38,7 @@ def export_transactions():
             header=YNAB_COLUMNS,
             rows=csv_rows,
         )
-        file_name = '{}.csv'.format(account.name)
+        file_name = f'{account.name}.csv'
         csv_builder.export_csv(file_name)
 
 
@@ -48,8 +48,7 @@ def get_balances():
 
     for account in app_conf.accounts:
         balance = account.connector.get_balance()
-        msg = 'Balance for account {} is {} EUR.'
-        logger.info(msg.format(account.name, balance))
+        logger.info(f'Balance for account {account.name} is {balance} EUR.')
 
 
 @cli.command()
@@ -60,8 +59,8 @@ def sync_transactions(import_sequence=1):
     import_sequence - see https://support.youneedabudget.com/t/k95rt1
     """
 
-    for account in app_conf.accounts:
-        logger.info('Syncing data for account: {}'.format(account.name))
+    for account in app_conf.accounts[:1]:
+        logger.info(f'Syncing data for account: {account.name}')
         account_id = account.ynab_account_id
         budget_id = account.ynab_budget_id
 
@@ -77,15 +76,14 @@ def sync_transactions(import_sequence=1):
             transactions=api_transactions,
         )
 
-        duplicates = response.data.bulk.duplicate_import_ids
-        new_transactions = response.data.bulk.transaction_ids
+        duplicates_count = len(response.data.bulk.duplicate_import_ids)
+        new_transactions_count = len(response.data.bulk.transaction_ids)
 
-        msg = 'Successfully synced account {} with YNAB: duplicates: {},' \
-              ' new: {}'.format(
-                account.name, len(duplicates), len(new_transactions))
+        msg = f'Syncing {account.name} with YNAB - duplicates: {duplicates_count}, ' \
+            f'new: {new_transactions_count}'
         logger.info(msg)
 
-        if len(new_transactions) > 0:
+        if new_transactions_count > 0:
             PushedAPIClient.push(msg)
 
 

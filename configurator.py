@@ -49,8 +49,8 @@ class Configurator(object):
         try:
             for account in self.cfg['accounts']:
                 if account['bank'] != 'n26':
-                    msg = 'Bank {} is currently not supported. Contact ' \
-                          'developers'.format(account['bank'])
+                    msg = f'Bank {account["bank"]} is currently not supported. Contact ' \
+                          'developers'
                     raise BankConnectorNotImplemented(msg)
 
                 connector = N26Connector(
@@ -69,8 +69,8 @@ class Configurator(object):
 
         except KeyError as e:
             field = e.args[0]
-            msg = 'Field {} is missing. See config.yml.example file'
-            raise ErrorInConfigFile(msg.format(field))
+            msg = f'Field {field} is missing. See config.yml.example file'
+            raise ErrorInConfigFile(msg)
 
         return accounts
 
@@ -80,8 +80,8 @@ class Configurator(object):
             return self.cfg['pushed']['app_key']
         except KeyError as e:
             field = e.args[0]
-            msg = 'Field {} is missing. See config.yml.example file'
-            raise ErrorInConfigFile(msg.format(field))
+            msg = f'Field {field} is missing. See config.yml.example file'
+            raise ErrorInConfigFile(msg)
 
     @property
     def pushed_app_secret(self):
@@ -89,17 +89,17 @@ class Configurator(object):
             return self.cfg['pushed']['app_secret']
         except KeyError as e:
             field = e.args[0]
-            msg = 'Field {} is missing. See config.yml.example file'
-            raise ErrorInConfigFile(msg.format(field))
+            msg = f'Field {field} is missing. See config.yml.example file'
+            raise ErrorInConfigFile(msg)
 
     def _configure_ynab_api(self):
         try:
             ynab_api_token = self.cfg['ynab']['api_token']
         except KeyError as e:
             field = e.args[0]
-            msg = 'Field {} is missing. YNAB access token needed. See ' \
+            msg = f'Field {field} is missing. YNAB access token needed. See ' \
                   'config.yml.example file'
-            raise ErrorInConfigFile(msg.format(field))
+            raise ErrorInConfigFile(msg)
         configuration = ynab.Configuration()
         configuration.api_key['Authorization'] = ynab_api_token
         configuration.api_key_prefix['Authorization'] = 'Bearer'
