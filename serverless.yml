@@ -1,0 +1,24 @@
+service: ynab-importer
+
+provider:
+  name: aws
+  runtime: python3.7
+  region: eu-central-1
+  stage: production
+
+package:
+  exclude:
+    - node_modules/**
+    - package.json
+    - package-lock.json
+
+functions:
+  sync-transactions:
+    handler: handler.sync
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    pythonBin: python

@@ -6,49 +6,52 @@ YNAB Importer
 Import transactions from [N26](https://n26.com) directly to [YNAB](https://www.youneedabudget.com/) via the API.
 
 
-Supported Banks
----------------
+## Usage
 
-- n26
-
-
-Usage
------
-
-Works with Python >3.5.
+Works with Python 3.7+.
 
 Install requirements:
 
-```sh
-`pip install -r requirements.txt
-```
+    pip install -r requirements.txt
 
 Create `config.yml` file based on `config.yml.example` file.
 
 Now you can run the following commands:
 
-```sh
-python cli.py export_transactions
-```
+    python cli.py export_transactions
 
 The command will export transactions to CSV files for all accounts listed in
 `config.yml`. These files can be directly imported to YNAB via the UI.
 
-```sh
-python cli.py get_balances
-```
+    python cli.py get_balances
 
 The command will return current balances for all accounts.
 
-```sh
-python cli.py sync_transactions
-```
+    python cli.py sync_transactions
 
 The command will sync transactions for all accounts via YNAB API.
 
 
-CLI Installation and Autocomplete
----------------------------------
+## Deploy to AWS Lambda
+
+The application is managed with Serverless and is hosted on AWS Lambda.
+
+### Prerequisites
+
+1. Install [npm](https://www.npmjs.com/get-npm) 
+
+1. Install Serverless globally: `npm install -g serverless`
+
+1. Install dependencies: `npm install`
+
+1. Setup [AWS Credentials](https://serverless.com/framework/docs/providers/aws/guide/credentials/)
+
+### Deploy
+
+Run `sls deploy -v`.
+
+
+## CLI Installation and Autocomplete
 
 First install ynab_importer package:
 
@@ -76,8 +79,7 @@ bashcompinit
 eval "$(_YNAB_IMPORTER_COMPLETE=source ynab_importer)"
 ```
 
-Python Requirements
--------------------
+## Python Requirements
 
 This project uses [pip-compile-multi](https://github.com/peterdemin/pip-compile-multi)
 project to manage Python requirements.

@@ -1,9 +1,10 @@
-.idea
+# Serverless directories
+.serverless
+
 .python-version
 config.yml
-venv
+node_modules
 ynab_importer.log
-
 *.csv
 __pycache__
 *.py[cod]
