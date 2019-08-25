@@ -75,3 +75,15 @@ autoload bashcompinit
 bashcompinit
 eval "$(_YNAB_IMPORTER_COMPLETE=source ynab_importer)"
 ```
+
+Python Requirements
+-------------------
+
+This project uses [pip-compile-multi](https://github.com/peterdemin/pip-compile-multi)
+project to manage Python requirements.
+
+To add/change python requirements:
+
+1. edit [requirements.in](requirements.in) file
+
+1. run `pip-compile-multi -d .`
