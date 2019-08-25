@@ -5,6 +5,7 @@ provider:
   runtime: python3.7
   region: eu-central-1
   stage: production
+  memorySize: 128  # MB
 
 package:
   exclude:
@@ -15,6 +16,9 @@ package:
 functions:
   sync-transactions:
     handler: handler.sync
+    events:
+      - schedule:
+          rate: cron(0 18 * * ? *)
 
 plugins:
   - serverless-python-requirements
