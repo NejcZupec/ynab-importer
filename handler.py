@@ -1,8 +1,8 @@
-from cli import sync_transactions
+from lib import api as ynab_importer_api
 
 
 def sync(event, context):
-    sync_transactions()
+    ynab_importer_api.sync_transactions()
 
     return {
         "message": "Sync transactions executed!",
