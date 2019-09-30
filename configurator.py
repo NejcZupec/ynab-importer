@@ -56,7 +56,6 @@ class Configurator(object):
                 connector = N26Connector(
                     username=account['settings']['username'],
                     password=account['settings']['password'],
-                    card_id=account['settings']['card_id'],
                 )
 
                 accounts.append(YNABAccount(

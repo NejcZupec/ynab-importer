@@ -4,11 +4,10 @@ from n26 import config
 
 class N26Connector(object):
 
-    def __init__(self, username, password, card_id):
+    def __init__(self, username, password):
         self._api = api.Api(config.Config(
             username=username,
             password=password,
-            card_id=card_id,
         ))
 
     def get_transactions(self, limit=50):
