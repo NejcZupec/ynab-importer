@@ -8,7 +8,7 @@ class N26Connector(object):
         self._api = api.Api(config.Config(
             username=username,
             password=password,
-            login_data_store_path=f".n26_access_token-{username}",
+            login_data_store_path=f"/tmp/.n26_access_token-{username}",
         ))
 
     def get_transactions(self, limit=50):
