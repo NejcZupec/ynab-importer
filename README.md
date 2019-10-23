@@ -48,7 +48,7 @@ The application is managed with Serverless and is hosted on AWS Lambda.
 
 ### Deploy
 
-Run `sls deploy -v`.
+Run `make deploy`.
 
 
 ## CLI Installation and Autocomplete
