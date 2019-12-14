@@ -9,7 +9,7 @@ if root.handlers:
     for handler in root.handlers:
         root.removeHandler(handler)
 
-log_level = os.environ.get("LOG_LEVEL", "DEBUG").upper()
+log_level = os.environ.get("LOG_LEVEL", "INFO").upper()
 
 logging.basicConfig(
     level=log_level,
