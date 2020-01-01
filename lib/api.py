@@ -32,7 +32,7 @@ def get_balances():
         logger.info(f'Balance for account {account.name} is {balance} EUR.')
 
 
-def sync_transactions(import_sequence=1):
+def sync_transactions(import_sequence=1, send_notification=False):
     for account in app_conf.accounts:
         logger.info(f'Syncing data for account: {account.name}')
         account_id = account.ynab_account_id
@@ -57,5 +57,5 @@ def sync_transactions(import_sequence=1):
             f'new: {new_transactions_count}'
         logger.info(msg)
 
-        if new_transactions_count > 0:
+        if new_transactions_count > 0 and send_notification:
             PushedAPIClient.push(msg)
