@@ -15,22 +15,22 @@ def cli():
     """Interact with YNAB Importer"""
 
 
-@cli.command()
+@cli.command("e")
 def export_transactions():
-    """ Generate YNAB ready CSV files for accounts defined in config.yml """
+    """ Export transactions to CSV """
     ynab_importer_api.export_transactions()
 
 
-@cli.command()
+@cli.command("b")
 def get_balances():
-    """ Get balances for all accounts defined in config.yml """
+    """ Get balances """
     ynab_importer_api.get_balances()
 
 
-@cli.command()
+@cli.command("s")
 @click.argument('import_sequence', required=False)
 def sync_transactions(import_sequence=1):
-    """ Sync transactions for all accounts with YNAB
+    """ Sync transactions for all accounts
 
     import_sequence - see https://support.youneedabudget.com/t/k95rt1
     """

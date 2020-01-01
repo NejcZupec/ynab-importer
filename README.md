@@ -16,20 +16,9 @@ Install requirements:
 
 Create `config.yml` file based on `config.yml.example` file.
 
-Now you can run the following commands:
+Now you can interact with `ynab-import` with the CLI. Check help for more details:
 
-    python cli.py export_transactions
-
-The command will export transactions to CSV files for all accounts listed in
-`config.yml`. These files can be directly imported to YNAB via the UI.
-
-    python cli.py get_balances
-
-The command will return current balances for all accounts.
-
-    python cli.py sync_transactions
-
-The command will sync transactions for all accounts via YNAB API.
+    python cli.py --help
 
 
 ## Deploy to AWS Lambda
@@ -56,7 +45,7 @@ Run `make deploy`.
 First install ynab_importer package:
 
 ```sh
-pip3 install .
+pip install .
 ```
 
 #### Bash
