@@ -1,6 +1,6 @@
 -e git+https://github.com/deanmcgregor/ynab-python.git@83b533589e4ef7c979f15ab0b6e0bfa8e6cd2673#egg=ynab-pythonclick==6.7
 click==7.1.2
-n26==3.0.0
+n26==3.2.6
 pip-compile-multi==1.5.9
 PyYAML==3.13
 requests==2.24.0
