@@ -5,7 +5,7 @@
 #
 #    pip-compile-multi
 #
-git+https://github.com/deanmcgregor/ynab-python.git@83b533589e4ef7c979f15ab0b6e0bfa8e6cd2673#egg=ynab-pythonclick==6.7  # via -r requirements.in
+git+https://github.com/deanmcgregor/ynab-python.git  # via -r requirements.in
 certifi==2020.12.5        # via n26, requests, ynab-python
 chardet==3.0.4            # via n26, requests
 click==7.1.2              # via -r requirements.in, n26, pip-compile-multi, pip-tools
